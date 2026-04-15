@@ -1,0 +1,34 @@
+/* 1. フォントサイズと単位の基準 */
+html {
+  font-size: 20px;
+}
+
+/* 2. bodyの設定（フォント種類・中央寄せ） */
+body {
+  font-family: "Arial", "Meiryo", sans-serif;
+  text-align: center;
+}
+
+/* 3. h1の設定（フォント・サイズ・文字間・影・下線） */
+h1 {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 2rem;           /* ルート(20px)の2倍 = 40px */
+  letter-spacing: 1.2em;      /* 文字の大きさの1.2倍 */
+  text-shadow: 2px 2px 5px gray;
+  border-bottom: solid 3px rgb(115, 115, 114);
+}
+
+/* 4. クラスによる色分け（名前・血液型などはピンク、それ以外はスカイブルー） */
+.pink {
+  color: rgb(255, 192, 203);
+}
+
+.blue {
+  color: skyblue;
+}
+
+/* 5. 子孫要素を使って「特定の場所」だけ太字にする */
+/* id="basic" の箱の中にある pタグ だけが対象 */
+#basic p {
+  font-weight: bold;
+}
