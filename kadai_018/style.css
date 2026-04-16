@@ -4,14 +4,13 @@
   background-color: #dcc9f4;
   margin: 20px auto;
   text-align: center;
-  padding: 20px 0; /* 合格基準「上下余白を取りつつ」を満たすために追加推奨 */
 }
 
 .top-child {
   width: 20%;
   background-color: #ffd9df;
   display: inline-block;
-  margin: 0; /* ブラウザ標準のp要素の余白をリセット */
+  margin: 0; 
 }
 
 /* --- 真ん中の図形（Step4） --- */
