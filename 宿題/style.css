@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;           /* 中の要素を上下の真ん中に揃える */
+  justify-content: space-between; /* ロゴ(左)とnav(右)を画面の両端に引き離す */
+  padding: 15px 30px;            /* ヘッダーの内側の余白（上下 15px / 左右 30px） */
+  border-bottom: 1px solid #e0e0e0; /* 下側の薄い区切り線 */
+  background-color: #ffffff;     /* 背景を白にする */
+}
+
+/* 左側：ロゴ画像のサイズ調整 */
+.header-logo {
+  display: inline-block;
+}
+.header-logo img {
+  height: 30px;
+  vertical-align: middle;
+}
+
+/* 右側：メニュー全体の箱 */
+.header-nav {
+  display: flex;                 /* 中にあるaタグを横一列に並べる */
+  align-items: center;           /* メニューの上下を真ん中に揃える */
+  gap: 24px;                     /* メニュー同士の間のスキマ */
+}
+
+
+/* aタグ（文字）の共通設定 */
+.nav-item {
+  text-decoration: none;         /* リンクの下線を消す */
+  color: #000000;                /* 文字の色を黒にする */
+  font-size: 14px;               /* 文字の大きさ */
+  font-weight: bold;             /* 文字を太字にする */
+  white-space: nowrap;           /* 途中で文字が改行されないようにする */
+}
+
+/* お問い合わせボタン（青枠の特別なaタグ） */
+.btn-contact {
+  border: 2px solid #0052cc;     /* 青い枠線をつける */
+  color: #0052cc;                /* 文字の色を青にする */
+  padding: 8px 16px;             /* ボタンの内側の余白 */
+  border-radius: 4px;            /* 枠の角を少し丸くする */
+}
+
+/* ログインボタン（矢印付きのaタグ） */
+.nav-item.btn-login {
+  display: flex;
+  align-items: center;
+  color: #000000;                /* 通常時は黒 */
+}
+/* ログインの文字の前に「→] 」の形を自動でプラスする設定 */
+.btn-login::before {
+  content: "→] ";
+  margin-right: 4px;             /* 矢印と文字の間のすきま */
+}
+
+
+/* ① 文字メニュー：アニメーションの土台作り（文字の下に透明な線を仕込む） */
+.nav-item:not(.btn-contact):not(.btn-login) {
+  position: relative;
+}
+
+/* ② 文字メニュー：マウスが乗っていないときの線の状態 */
+.nav-item:not(.btn-contact):not(.btn-login)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #0052cc;
+  transition: width 0.3s ease;   /* 0.3秒かけて滑らかに動かす */
+}
+
+/* ③ 文字メニュー：マウスが乗ったとき（幅を100%に伸ばす！） */
+.nav-item:not(.btn-contact):not(.btn-login):hover::after {
+  width: 100%;
+}
+
+/* ④ お問い合わせボタン：マウスが乗ったときに背景を青くする */
+.btn-contact:hover {
+  background-color: #0052cc !important;
+  color: #ffffff !important;
+  border-color: #0052cc !important;
+}
+
+/* ⑤ ログインボタン：マウスが乗ったときに文字と矢印をグレーにする */
+.nav-item.btn-login:hover,
+.nav-item.btn-login:hover::before {
+  color: #666666 !important;     /* 文字も矢印もグレーに変える */
+  cursor: pointer;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  /* スマホ画面では、右側のnavをまるごと非表示にして崩れを防ぐ */
+  .header-nav {
+    display: none;
+  }
+
+  /* 全体の余白をスマホ用に少しだけ狭くする */
+  .header {
+    padding: 12px 20px;
+  }
+}
