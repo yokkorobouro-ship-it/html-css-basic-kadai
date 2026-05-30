@@ -1,0 +1,260 @@
+/* ==========================================================
+1. 基本のお掃除
+========================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ==========================================================
+2. パソコン用：1段目（上の青いバー）
+========================================================== */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #55b4e6;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 8px 30px;
+}
+
+.top-right-list {
+  display: flex;
+  gap: 20px;
+}
+
+.top-right-list a {
+  color: #ffffff;
+}
+
+/* ==========================================================
+3. パソコン用：2段目（下の白いバー）
+========================================================== */
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-logo a {
+  color: #33a6dd;
+  font-size: 24px;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-item a {
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.nav-item a:hover {
+  color: #33a6dd;
+}
+
+/* オレンジのボタン（パソコン用） */
+.btn-signup a {
+  display: inline-block;
+  background-color: #ea9b32;
+  color: #ffffff !important;
+  padding: 10px 24px;
+  border-radius: 4px;
+}
+
+/* パソコン用のドロップダウンメニュー */
+.nav-item.has-child {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 10px 0;
+  width: 260px;
+  z-index: 100;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 20px;
+  color: #333333 !important;
+  font-size: 13px;
+  font-weight: normal;
+  text-align: left;
+  white-space: normal;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f5f5f5;
+  color: #33a6dd !important;
+}
+
+.nav-item.has-child:hover .dropdown-menu {
+  display: block;
+}
+
+/* パソコン用のグレーの矢印 */
+.arrow {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-right: 2px solid #666666;
+  border-bottom: 2px solid #666666;
+  transform: rotate(45deg);
+  position: relative;
+  top: -2px;
+}
+
+/* ==========================================================
+4. スマホ用パーツの初期設定（パソコンでは非表示）
+========================================================== */
+.header-mobile-buttons,
+.mobile-menu-open {
+  display: none;
+}
+
+/* ==========================================================
+5. スマホ対応（画面幅が768px以下の設定）
+========================================================== */
+@media (max-width: 768px) {
+  
+  /* パソコン用のバーやメニューを消す */
+  .header-top,
+  .header-nav {
+    display: none;
+  }
+
+  .header-main {
+    padding: 12px 20px;
+  }
+
+  /* スマホ用の右上ボタンを表示 */
+  .header-mobile-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* スマホ用オレンジボタン */
+  .mobile-btn-signup {
+    background-color: #ea9b32;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
+
+  /* スマホ用「× close」ボタン */
+  .hamburger-menu-close {
+    background: none;
+    border: none;
+    color: #33a6dd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .close-text {
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  .close-sub {
+    font-size: 10px;
+  }
+
+  /* スマホ用の縦並び水色メニュー */
+  .mobile-menu-open {
+    display: block; /* スマホ画面で出現させる */
+    background-color: #1cb0eb; /* 水色 */
+    width: 100%;
+  }
+
+  .mobile-nav-list li {
+    border-bottom: 1px solid #50c4f2; /* 行と行の間のうすい線 */
+  }
+
+  .mobile-nav-list li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    color: #ffffff; /* 文字色は白 */
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  /* スマホメニュー内の白い矢印 */
+  .arrow-white {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    transform: rotate(45deg);
+  }
+
+  /* 一番下の白いエリア */
+  .mobile-menu-bottom {
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .mobile-bottom-login {
+    flex: 1;
+    text-align: center;
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+  }
+
+  .mobile-bottom-signup {
+    flex: 1;
+    text-align: center;
+    background-color: #ea9b32;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 4px;
+  }
+}
