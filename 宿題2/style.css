@@ -45,6 +45,8 @@ a {
 3. パソコン用：2段目（下の白いバー）
 ========================================================== */
 .header-main {
+  position: relative;
+  z-index: 200; /* ドロワーメニューより前に出すためのお守り */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,10 +138,10 @@ a {
 }
 
 /* ==========================================================
-4. スマホ用パーツの初期設定（パソコンでは非表示）
+4. スマホ用パーツの初期設定（パソコンでは隠しておく）
 ========================================================== */
 .header-mobile-buttons,
-.mobile-menu-open {
+.mobile-menu-drawer {
   display: none;
 }
 
@@ -148,21 +150,16 @@ a {
 ========================================================== */
 @media (max-width: 768px) {
   
-  /* パソコン用のバーやメニューを消す */
   .header-top,
   .header-nav {
     display: none;
   }
 
-  .header-main {
-    padding: 12px 20px;
-  }
-
-  /* スマホ用の右上ボタンを表示 */
+  /* スマホ用の右上ボタンエリアを表示 */
   .header-mobile-buttons {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
   }
 
   /* スマホ用オレンジボタン */
@@ -173,38 +170,89 @@ a {
     font-weight: bold;
     padding: 8px 16px;
     border-radius: 4px;
+    position: relative;
+    z-index: 200;
   }
 
-  /* スマホ用「× close」ボタン */
-  .hamburger-menu-close {
+  /* 三本線ボタンの土台（ボタン内のテキストや線の位置を固定） */
+  .hamburger-menu {
     background: none;
     border: none;
-    color: #33a6dd;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    position: relative;
+    z-index: 200;
   }
 
-  .close-text {
-    font-size: 24px;
-    line-height: 1;
-    font-weight: 300;
+  /* 三本線の基本の形（3本の線を真ん中に重ねて配置） */
+  .hamburger-menu span {
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: #33a6dd;
+    border-radius: 2px;
+    transition: all 0.3s ease; /* アニメーションをなめらかにする */
   }
 
-  .close-sub {
-    font-size: 10px;
+  /* 3本の線の初期位置（上下にずらす） */
+  .hamburger-menu span:nth-child(1) { top: 10px; }
+  .hamburger-menu span:nth-child(2) { top: 17px; }
+  .hamburger-menu span:nth-child(3) { top: 24px; }
+
+  /* 三本線の下にある小さな「menu / close」の文字 */
+  .menu-text {
+    font-size: 9px;
+    color: #33a6dd;
+    position: absolute;
+    bottom: 0;
+    transition: all 0.3s ease;
   }
 
-  /* スマホ用の縦並び水色メニュー */
-  .mobile-menu-open {
-    display: block; /* スマホ画面で出現させる */
-    background-color: #1cb0eb; /* 水色 */
+  /* openシールが貼られた時の三本線の変身（×にする） */
+  .header.open .hamburger-menu span:nth-child(1) {
+    top: 17px;
+    transform: rotate(45deg); /* 1本目を右に45度傾ける */
+  }
+  .header.open .hamburger-menu span:nth-child(2) {
+    opacity: 0; /* 2本目の真ん中の線は透明にして消す */
+  }
+  .header.open .hamburger-menu span:nth-child(3) {
+    top: 17px;
+    transform: rotate(-45deg); /* 3本目を左に45度傾ける */
+  }
+  
+  /* シールが貼られたら、文字を「close」に変える */
+  .header.open .menu-text {
+    content: "close";
+  }
+
+  /* 水色のドロワーメニュー（初期状態：画面の上に隠しておく） */
+  .mobile-menu-drawer {
+    display: block; /* 存在はさせる */
+    position: absolute;
+    top: -100vh; /* ★マイナス100vhを指定して、画面の「上の外側」へ完全に隠す */
+    left: 0;
     width: 100%;
+    background-color: #1cb0eb;
+    z-index: 150;
+    transition: all 0.4s ease; /* 上下からスルッと動くアニメーション */
   }
 
+  /* 「open」シールが貼られたら、ドロワーを下へ引っ張り出す！ */
+  .header.open .mobile-menu-drawer {
+    top: 69px; /* 白いヘッダー（高さ約69px）のすぐ真下まで降りてきなさい！ */
+  }
+
+  /* ドロワーメニューの中身の見た目 */
   .mobile-nav-list li {
-    border-bottom: 1px solid #50c4f2; /* 行と行の間のうすい線 */
+    border-bottom: 1px solid #50c4f2;
   }
 
   .mobile-nav-list li a {
@@ -212,12 +260,11 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 16px 20px;
-    color: #ffffff; /* 文字色は白 */
+    color: #ffffff;
     font-size: 15px;
     font-weight: bold;
   }
 
-  /* スマホメニュー内の白い矢印 */
   .arrow-white {
     display: inline-block;
     width: 8px;
@@ -227,7 +274,6 @@ a {
     transform: rotate(45deg);
   }
 
-  /* 一番下の白いエリア */
   .mobile-menu-bottom {
     background-color: #ffffff;
     padding: 20px;
@@ -258,3 +304,33 @@ a {
     border-radius: 4px;
   }
 }
+
+
+/* ==========================================================
+★新登場！スマホ用のパカパカ開く子メニュー（アコーディオン）
+  ========================================================== */
+  /* 通常時：子メニューを完全に潰して隠しておく */
+  .mobile-sub-menu {
+    max-height: 0;             /* 高さをゼロにする */
+    overflow: hidden;          /* ゼロからはみ出た文字を非表示にする */
+    background-color: #0c9fd9; /* 本物サイトっぽい、少し濃いめの綺麗な水色 */
+    transition: max-height 0.3s ease; /* 開くときにするする〜っと動かす */
+  }
+
+  /* 子メニューの中の文字の設定 */
+  .mobile-sub-menu li a {
+    padding: 12px 30px !important; /* 少し右側にずらして、奥まったメニューにする */
+    font-size: 13px !important;    /* パソコンと同じで、少し小さめの文字 */
+    font-weight: normal !important; /* 文字を少し細くしてすっきりさせる */
+    border-bottom: none !important; /* 中の線は消す */
+  }
+
+  /* 「active」シールが貼られたら、子メニューの限界突破して広げる！ */
+  .js-accordion.active .mobile-sub-menu {
+    max-height: 300px; /* パカッと開いて中身が見える十分な高さにする */
+  }
+
+  /* 「active」シールが貼られたら、矢印を「上向き（▲）」に回転させる */
+  .js-accordion.active .arrow-white {
+    transform: rotate(-135deg); /* くるっとひっくり返して上向きにする */
+  }
