@@ -1,0 +1,90 @@
+/* ==========================================================
+1. 基本のお掃除
+========================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+
+/* ==========================================================
+2. メインビジュアル全体のレイアウト（画面いっぱいの高さに）
+========================================================== */
+.fv-container {
+  width: 100%;
+  height: 100vh;        /* 画面ピッタリの高さにする */
+  position: relative;
+  overflow: hidden;     /* 拡大した写真が画面からはみ出さないようにガード */
+  background-color: #000; /* 写真が切り替わる背景を黒にしておく */
+}
+
+/* 写真を包む透明な箱（すべて同じ場所に重ねる） */
+.fv-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;           /* 最初は全員「透明（見えない）」にする */
+  transition: opacity 1.5s ease; /* 1.5秒かけてふわっとフェードイン・アウト */
+  z-index: 1;
+}
+
+/* jQueryで「active」というシール（クラス）を貼られた写真だけが見える */
+.fv-slide.active {
+  opacity: 1;           /* 不透明（見える状態）にする */
+  z-index: 2;           /* 一番上に引っ張り出す */
+}
+
+/* 実際の背景写真が入る箱（ここで拡大アニメーションをかける） */
+.fv-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 「active」シールが貼られた瞬間から、写真をゆっくり拡大し始める設定 */
+.fv-slide.active .fv-img {
+  animation: zoomAnime 6s linear forwards; /* 6秒かけて、一定の速度で拡大し続ける */
+}
+
+/* 🎬 じわ〜っと1.0倍から1.08倍まで大きくするアニメーションの設計図 */
+@keyframes zoomAnime {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08); /* ほんの少しだけ大きくする */
+  }
+}
+
+/* ==========================================================
+3. 3枚の写真背景
+========================================================== */
+.img1 { background-image: url('photo1.jpg'); }
+.img2 { background-image: url('photo2.jpg'); }
+.img3 { background-image: url('photo3.jpg'); }
+
+/* ==========================================================
+4. 中央のロゴエリア
+========================================================== */
+.fv-logo-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;          /* 写真よりも絶対に前に出す */
+  color: #ffffff;
+  letter-spacing: 0.2em; /* 文字と文字の間隔を広げてオシャレに */
+  font-size: 24px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: 10px 20px;
+  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
